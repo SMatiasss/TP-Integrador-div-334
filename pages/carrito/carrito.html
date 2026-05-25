@@ -4,25 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nombre de la pag</title>
-    <!-- <link rel="icon" type="image/png" href="assets/"> Icono de la página acá-->
+    <link rel="icon" type="image/png" href="../../assets/icono/favicon.ico">
     <link rel="stylesheet" href="carrito.css">
     <script src="carrito.js"></script>
 
 </head>
 <body>
     <header>
-        <img id="logo-en-nav">
-        <h1>nombre de la cosa</h1>
-
-        <nav>
+        <div id="logo-y-nombre">
+            <img src="../../assets/icono/icono.png" id="logo">
+            <h4>nombre de la cosa</h4>
+        </div>
+        <nav class="menu-izquierda">
             <a href="">Inicio</a>
             <a href="">tipo producto 1</a>
             <a href="">tipo producto 2</a>
+        </nav>
+        <nav class="menu-derecha">
             <input type="text" placeholder="Buscar..." class="barra-busqueda">
+            <a href="../carrito/carrito.html">Mi carrito</a>
         </nav>
     </header>
-    <main>
 
+    <main>
+        <section id="carrito">
+            <table>
+                <th>
+                    <td>a</td>
+                    <td>b1</td>
+                    <td>b2</td>
+                </th>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </section>
+        <section id="valor-total">
+            <p>Total a pagar:</p>
+            <button onclick="window.location.href='../ticket/ticket.html'">Confirmar</button>
+        </section>
+
+            
     </main>
 </body>
 </html>
