@@ -55,6 +55,13 @@ main {
     border: 1px solid blue;
 }
 
+.menu-medio {
+    display: flex;
+    margin: 0 auto 0 auto;
+    position: relative;
+    top: 18px;
+}
+
 .menu-derecha {
     display: flex;
     border: 1px solid green;
