@@ -51,24 +51,24 @@ main {
 /*************************************************************/
 /* Header general */
 /*************************************************************/
-.menu-izquierda {
+#menu-izquierda {
     border: 1px solid blue;
 }
 
-.menu-medio {
+#menu-medio {
     display: flex;
     margin: 0 auto 0 auto;
     position: relative;
     top: 18px;
 }
 
-.menu-derecha {
+#menu-derecha {
     display: flex;
     border: 1px solid green;
     margin-left: auto;
 }
 
-.menu-izquierda button {
+#menu-izquierda button {
     background: none;
     border: none;
     padding: 0;

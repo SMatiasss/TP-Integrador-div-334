@@ -1,0 +1,25 @@
+{
+    "teclados": [
+        {
+            "nombre": "Redragon Kumara",
+            "info": "",
+            "precio": 45000,
+            "cantidad": 100,
+            "img": ""
+        },
+        {
+            "nombre": "Logitech G Pro",
+            "info": "",
+            "precio": 120000,
+            "cantidad": 30,
+            "img": ""
+        },
+        {
+            "nombre": "Hyperx Alloy",
+            "info": "",
+            "precio": 98000,
+            "cantidad": 40,
+            "img": ""
+        }
+    ]
+}

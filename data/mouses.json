@@ -1,0 +1,25 @@
+{
+    "mouses": [
+        {
+            "nombre": "Logitech G502",
+            "info": "",
+            "precio": 85000,
+            "cantidad": 55,
+            "img": ""
+        },
+        {
+            "nombre": "Razer DeathAdder V3",
+            "info": "",
+            "precio": 99000,
+            "cantidad": 35,
+            "img": ""
+        },
+        {
+            "nombre": "SteelSeries Rival 3",
+            "info": "",
+            "precio": 47000,
+            "cantidad": 95,
+            "img": ""
+        }
+    ]
+}
