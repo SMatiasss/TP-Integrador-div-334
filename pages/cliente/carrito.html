@@ -17,33 +17,20 @@
         </div>
         <nav id="menu-izquierda">
             <a href="inicio.html">Inicio</a>
-            <button onclick="">Tipo producto 1</button>
-            <button onclick="">Tipo producto 2</button>
         </nav>
         <p id="menu-medio">Soria Matias - Terenghi Goy Estéfano</p>
         <nav id="menu-derecha">
-            <input type="text" placeholder="Buscar..." id="barra-busqueda">
-            <a href="">Mi carrito</a>
+            <input type="text" placeholder="Buscar..." oninput="filtrarProductos(this.value)" id="barra-busqueda">
+            <a href="#">Mi carrito</a>
         </nav>
     </header>
 
     <main>
-        <section id="carrito">
-            <table>
-                <th>
-                    <td>a</td>
-                    <td>b1</td>
-                    <td>b2</td>
-                </th>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
+        <section id="contenedor-tabla">
+            <table id="tabla-carrito"></table>
         </section>
-        <section id="valor-total">
-            <p>Total a pagar:</p>
+        <section id="contenedor-valor-final">
+            <p id="valor-final">Total a pagar:</p>
             <button onclick="window.location.href='ticket.html'">Confirmar</button>
         </section>  
     </main>

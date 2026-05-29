@@ -1,3 +1,6 @@
+/*************************************************************/
+/* creación de inits */
+/*************************************************************/
 function init() {
     initInicio()
     initCarrito()
@@ -12,20 +15,25 @@ async function initInicio() {
 }
 
 function initCarrito() {
-    if (!document.querySelector("#carrito")) return
+    if (!document.querySelector("#contenedor-tabla")) return
 
-    /* Lógica carrito */
+    imprimirTabla()
 }
 
+
+
+/*************************************************************/
+/* Exclusivo de pantalla Inicio */
+/*************************************************************/
 async function cargarDatos() {
     const respuestaTeclados = await fetch("../../data/teclados.json")
-    const objTeclados = await respuestaTeclados.json()
+    const jsonTeclados = await respuestaTeclados.json()
 
     const respuestaMouses = await fetch("../../data/mouses.json")
-    const objMouses = await respuestaMouses.json()
+    const jsonMouses = await respuestaMouses.json()
 
     
-    return {teclados: objTeclados.teclados, mouses: objMouses.mouses}
+    return {teclados: jsonTeclados.teclados, mouses: jsonMouses.mouses}
 }
 
 /* 
@@ -77,9 +85,62 @@ function imprimirProductos(productos){
     }
 }
 
+function filtrarProductos(texto){
+    texto.toLowerCase()
+    /* Creo un array nuevo obtenido mediante el filtrado con el texto a los arrays */
+
+    /* let resultado = array.filter(fruta =>
+        fruta.nombre.toLowerCase().includes(texto)
+    ); 
+
+    console.log(resultado);
+
+    // Imprimo nueva lista.
+    imprimirProductos(resultado); */
+}
+
+
+
+/*************************************************************/
+/* Exclusivo de pantalla Carrito */
+/*************************************************************/
+function imprimirTabla(){
+    const tabla = document.querySelector("#tabla-carrito")
+    const valorFinal = document.querySelector("#valor-final")
+    let total = 0
+
+    tabla.innerHTML = `
+    <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Precio total</th>
+    </tr>
+    `
+    if (carrito != []){
+        carrito.forEach(i => {
+            const valor = i.producto.precio * i.cantidad
+            tabla.innerHTML +=`
+            <tr>
+                <td>${i.producto.nombre}</td>
+                <td>${i.cantidad}</td>
+                <td>${valor}</td>
+            </tr>
+            `
+            total += valor
+        });
+    }
+
+    valorFinal.innerHTML += ` ${total}`
+}
+
+
+
+/*************************************************************/
+/* Funciones de multiples pantallas */
+/*************************************************************/
 function actualizarCarrito(operador, nombre){
-    const producto = teclados.find(i => i.nombre === nombre) || mouses.find(i => i.nombre === nombre)
-    const productoEnCarrito = carrito.find(i => i.producto.nombre === nombre)
+    const producto = teclados.find(i => i.nombre == nombre) || mouses.find(i => i.nombre == nombre)
+    const productoEnCarrito = carrito.find(i => i.producto.nombre == nombre)
    
     if (!productoEnCarrito) {
         carrito.push({producto: producto, cantidad: 1})
@@ -88,8 +149,19 @@ function actualizarCarrito(operador, nombre){
         productoEnCarrito.cantidad += operador
         if (productoEnCarrito.cantidad <= 0) carrito.splice((carrito.findIndex(i => i.producto.nombre == nombre)), 1)
     }
+    guardarCarrito()
+    console.log(carrito);
 } 
 
+function guardarCarrito(){
+    localStorage.setItem("carrito", JSON.stringify(carrito))
+}
+
+
+
+/*************************************************************/
+/* Creacion de arrays para usar y ejecución init */
+/*************************************************************/
 let teclados = []
 let mouses = []
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [] 
