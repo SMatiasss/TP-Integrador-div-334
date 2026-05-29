@@ -62,14 +62,14 @@ function imprimirProductos(productos){
             const nombre = producto.nombre
             contenedor.innerHTML += `
                 <li id="producto-${nombre}">
-                    <img src=${producto.img} alt=${nombre}>
+                    <img src=${producto.img}>
                     <div>
                         <h3>${nombre}</h3>
                         <p class="precio-producto">${producto.precio}</p>
                         <p class="descripcion-producto">${producto.info}</p>
                     </div>
-                    <button class="btn-sumar-a-carrito"> + </button>
-                    <button class="btn-restar-a-carrito"> - </button>
+                    <button onclick="actualizarCarrito(-1, '${nombre}')"> + </button>
+                    <button onclick="actualizarCarrito(1, '${nombre}')"> - </button>
                 </li>
             `
         });
@@ -79,7 +79,46 @@ function imprimirProductos(productos){
     }
 }
 
+function actualizarCarrito(operador, nombre){
+    console.log(carrito);
+    console.log("");
+    
+    const producto = teclados.find(producto => producto.nombre === nombre) || mouses.find(producto => producto.nombre === nombre)
+    
+    let productoEncontrado = carrito.find(prod => prod[0].nombre == nombre)
+    if (!productoEncontrado) {
+        carrito.push([productoEncontrado, {"cantidad": 1}])
+    } else {
+        productoEncontrado[1].cantidad += operador
+    }
+    console.log(carrito);
+    
+    /* if (!productoEncontrado) carrito.push([producto, { cantidad: 1 }]); else productoEncontrado[1].cantidad++ */
+}
+
+/*
+function actualizarCarrito(operador, nombre){
+
+    const producto =
+        teclados.find(p => p.nombre === nombre) ||
+        mouses.find(p => p.nombre === nombre)
+
+    let productoEnCarrito = carrito.find(item => item.producto.nombre === nombre)
+
+    if (!productoEnCarrito) {
+        carrito.push({
+            producto: producto,
+            cantidad: 1
+        })
+    } else {
+        productoEnCarrito.cantidad += operador
+    }
+
+    console.log(carrito)
+} */
+
 let teclados = []
 let mouses = []
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [] 
 
 init()
