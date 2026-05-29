@@ -6,7 +6,7 @@ function init() {
 async function initInicio() {
     if (!document.querySelector("#contenedor-productos")) return
 
-    let {teclados, mouses } = await cargarDatos()
+    ({teclados, mouses} = await cargarDatos())
     imprimirProductos(teclados)
 
 }
@@ -18,22 +18,12 @@ function initCarrito() {
 }
 
 async function cargarDatos() {
-
     const respuestaTeclados = await fetch("../../data/teclados.json")
     const objTeclados = await respuestaTeclados.json()
-
-
-    
 
     const respuestaMouses = await fetch("../../data/mouses.json")
     const objMouses = await respuestaMouses.json()
 
-        console.log(objTeclados);
-    console.log(`
-        
-        `);
-    
-    console.log(objMouses);
     
     return {teclados: objTeclados.teclados, mouses: objMouses.mouses}
 }
@@ -58,7 +48,7 @@ async function cargarDatos() {
 */
 
 function imprimirProductos(productos){
-    let contenedor = document.querySelector("#contenedor-productos")
+    const contenedor = document.querySelector("#contenedor-productos")
     contenedor.innerHTML = `
     <p>No hay Productos disponibles</p>
     `
@@ -88,4 +78,8 @@ function imprimirProductos(productos){
         </ul>`
     }
 }
+
+let teclados = []
+let mouses = []
+
 init()
