@@ -4,10 +4,11 @@
 function init() {
     initInicio()
     initCarrito()
+    initTicket()
 }
 
 async function initInicio() {
-    if (!document.querySelector("#contenedor-productos")) return
+    if (!document.querySelector("#pagina-inicio")) return
 
     ({teclados, mouses} = await cargarDatos())
     imprimirProductos(teclados)
@@ -15,12 +16,16 @@ async function initInicio() {
 }
 
 function initCarrito() {
-    if (!document.querySelector("#contenedor-tabla")) return
+    if (!document.querySelector("#pagina-carrito")) return
 
     imprimirTabla()
 }
 
+function initTicket() {
+    if (!document.querySelector("#pagina-ticket")) return
 
+    /* Lógica ticket */
+}
 
 /*************************************************************/
 /* Exclusivo de pantalla Inicio */
