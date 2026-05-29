@@ -91,17 +91,21 @@ function imprimirProductos(productos){
 }
 
 function filtrarProductos(texto){
-    texto.toLowerCase()
-    /* Creo un array nuevo obtenido mediante el filtrado con el texto a los arrays */
+    if (texto != ""){    /* Creo un array nuevo obtenido mediante el filtrado con el texto a los arrays */
 
-    /* let resultado = array.filter(fruta =>
-        fruta.nombre.toLowerCase().includes(texto)
+    /* let resultado = array.filter(i =>
+        i.nombre.toLowerCase().includes(texto.toLowerCase())
     ); 
 
     console.log(resultado);
 
     // Imprimo nueva lista.
-    imprimirProductos(resultado); */
+    imprimirProductos(resultado); */}
+    else {
+        /* mostrar el ultimo tipo de producto seleccionado */
+        /* imprimirProductos(UltimoArray) */
+    }
+
 }
 
 
@@ -167,8 +171,8 @@ function guardarCarrito(){
 /*************************************************************/
 /* Creacion de arrays para usar y ejecución init */
 /*************************************************************/
-let teclados = []
-let mouses = []
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [] 
+let teclados = [] // Formato: visible en teclados.json
+let mouses = [] // Formato: visible en mouses.json
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [] // formato: [{productos: obj(teclado/mouse), cantidad: int}, {...}]
 
 init()
