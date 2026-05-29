@@ -53,8 +53,6 @@ function imprimirProductos(productos){
     <p>No hay Productos disponibles</p>
     `
     if (productos.length > 0){
-        console.log("entré");
-        
         contenedor.innerHTML = `
         <ul>
         `
@@ -68,8 +66,8 @@ function imprimirProductos(productos){
                         <p class="precio-producto">${producto.precio}</p>
                         <p class="descripcion-producto">${producto.info}</p>
                     </div>
-                    <button onclick="actualizarCarrito(-1, '${nombre}')"> + </button>
-                    <button onclick="actualizarCarrito(1, '${nombre}')"> - </button>
+                    <button onclick="actualizarCarrito(1, '${nombre}')"> + </button>
+                    <button onclick="actualizarCarrito(-1, '${nombre}')"> - </button>
                 </li>
             `
         });
@@ -80,42 +78,17 @@ function imprimirProductos(productos){
 }
 
 function actualizarCarrito(operador, nombre){
-    console.log(carrito);
-    console.log("");
-    
-    const producto = teclados.find(producto => producto.nombre === nombre) || mouses.find(producto => producto.nombre === nombre)
-    
-    let productoEncontrado = carrito.find(prod => prod[0].nombre == nombre)
-    if (!productoEncontrado) {
-        carrito.push([productoEncontrado, {"cantidad": 1}])
-    } else {
-        productoEncontrado[1].cantidad += operador
-    }
-    console.log(carrito);
-    
-    /* if (!productoEncontrado) carrito.push([producto, { cantidad: 1 }]); else productoEncontrado[1].cantidad++ */
-}
-
-/*
-function actualizarCarrito(operador, nombre){
-
-    const producto =
-        teclados.find(p => p.nombre === nombre) ||
-        mouses.find(p => p.nombre === nombre)
-
-    let productoEnCarrito = carrito.find(item => item.producto.nombre === nombre)
-
+    const producto = teclados.find(i => i.nombre === nombre) || mouses.find(i => i.nombre === nombre)
+    const productoEnCarrito = carrito.find(i => i.producto.nombre === nombre)
+   
     if (!productoEnCarrito) {
-        carrito.push({
-            producto: producto,
-            cantidad: 1
-        })
+        carrito.push({producto: producto, cantidad: 1})
+        producto.stock--
     } else {
         productoEnCarrito.cantidad += operador
+        if (productoEnCarrito.cantidad <= 0) carrito.splice((carrito.findIndex(i => i.producto.nombre == nombre)), 1)
     }
-
-    console.log(carrito)
-} */
+} 
 
 let teclados = []
 let mouses = []
