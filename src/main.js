@@ -2,17 +2,18 @@
 /* creación de inits */
 /*************************************************************/
 function init() {
+    initIndex()
     initInicio()
     initCarrito()
     initTicket()
+    asignarNombre()
 }
 
 async function initInicio() {
     if (!document.querySelector("#pagina-inicio")) return
 
-    ({teclados, mouses} = await cargarDatos())
+    ({ teclados, mouses } = await cargarDatos())
     imprimirProductos(teclados)
-
 }
 
 function initCarrito() {
@@ -27,6 +28,36 @@ function initTicket() {
     /* Lógica ticket */
 }
 
+function asignarNombre(){
+    let nombre = localStorage.getItem('nombre')
+    let nombreElemento = document.getElementById('nombre') ?? 'Indefinido'
+    nombreElemento.innerHTML = nombre
+}
+
+/*************************************************************/
+/* Exclusivo de pantalla Index */
+/*************************************************************/
+function initIndex() {
+    let botonContinuar = document.getElementById('btn-continuar')
+    
+    // Si no está en el DOM, salimos limpiamente de la función
+    if (!botonContinuar) return 
+
+    let inputNombre = document.getElementById('input-nombre')
+    
+    botonContinuar.addEventListener('click', (e) => {
+        let nombre = inputNombre.value.trim()
+        if (nombre === "") {
+            alert("El nombre no puede estar vacío")
+        } else {
+            localStorage.setItem('nombre', nombre)
+            window.location.href = 'pages/cliente/inicio.html'
+        }
+    })
+}
+
+
+
 /*************************************************************/
 /* Exclusivo de pantalla Inicio */
 /*************************************************************/
@@ -37,8 +68,8 @@ async function cargarDatos() {
     const respuestaMouses = await fetch("../../data/mouses.json")
     const jsonMouses = await respuestaMouses.json()
 
-    
-    return {teclados: jsonTeclados.teclados, mouses: jsonMouses.mouses}
+
+    return { teclados: jsonTeclados.teclados, mouses: jsonMouses.mouses }
 }
 
 /* 
@@ -60,38 +91,36 @@ async function cargarDatos() {
 }    
 */
 
-function imprimirProductos(productos){
+function imprimirProductos(productos) {
     const contenedor = document.querySelector("#contenedor-productos")
     contenedor.innerHTML = `
     <p>No hay Productos disponibles</p>
     `
-    if (productos.length > 0){
-        contenedor.innerHTML = `
-        <ul>
-        `
+    if (productos.length > 0) {
+        contenedor.innerHTML = `<ul>`
         productos.forEach(producto => {
             const nombre = producto.nombre
             contenedor.innerHTML += `
-                <li id="producto-${nombre}">
+                <li class="producto">
                     <img src=${producto.img}>
-                    <div>
+                    <div class="contenido">
                         <h3>${nombre}</h3>
-                        <p class="precio-producto">${producto.precio}</p>
+                        <p class="precio-producto">$${producto.precio}</p>
                         <p class="descripcion-producto">${producto.info}</p>
                     </div>
-                    <button onclick="actualizarCarrito(1, '${nombre}')"> + </button>
                     <button onclick="actualizarCarrito(-1, '${nombre}')"> - </button>
+                    <button onclick="actualizarCarrito(1, '${nombre}')"> + </button>
                 </li>
             `
         });
 
-        contenedor.innerHTML +=`
+        contenedor.innerHTML += `
         </ul>`
     }
 }
 
-function filtrarProductos(texto){
-    if (texto != ""){    /* Creo un array nuevo obtenido mediante el filtrado con el texto a los arrays */
+function filtrarProductos(texto) {
+    if (texto != "") {    /* Creo un array nuevo obtenido mediante el filtrado con el texto a los arrays */
 
     /* let resultado = array.filter(i =>
         i.nombre.toLowerCase().includes(texto.toLowerCase())
@@ -113,7 +142,7 @@ function filtrarProductos(texto){
 /*************************************************************/
 /* Exclusivo de pantalla Carrito */
 /*************************************************************/
-function imprimirTabla(){
+function imprimirTabla() {
     const tabla = document.querySelector("#tabla-carrito")
     const valorFinal = document.querySelector("#valor-final")
     let total = 0
@@ -125,21 +154,21 @@ function imprimirTabla(){
         <th>Precio total</th>
     </tr>
     `
-    if (carrito != []){
+    if (carrito != []) {
         carrito.forEach(i => {
             const valor = i.producto.precio * i.cantidad
-            tabla.innerHTML +=`
+            tabla.innerHTML += `
             <tr>
                 <td>${i.producto.nombre}</td>
                 <td>${i.cantidad}</td>
-                <td>${valor}</td>
+                <td>$${valor}</td>
             </tr>
             `
             total += valor
         });
     }
 
-    valorFinal.innerHTML += ` ${total}`
+    valorFinal.innerHTML += ` $${total}`
 }
 
 
@@ -147,12 +176,12 @@ function imprimirTabla(){
 /*************************************************************/
 /* Funciones de multiples pantallas */
 /*************************************************************/
-function actualizarCarrito(operador, nombre){
+function actualizarCarrito(operador, nombre) {
     const producto = teclados.find(i => i.nombre == nombre) || mouses.find(i => i.nombre == nombre)
     const productoEnCarrito = carrito.find(i => i.producto.nombre == nombre)
-   
+
     if (!productoEnCarrito) {
-        carrito.push({producto: producto, cantidad: 1})
+        carrito.push({ producto: producto, cantidad: 1 })
         producto.stock--
     } else {
         productoEnCarrito.cantidad += operador
@@ -160,9 +189,9 @@ function actualizarCarrito(operador, nombre){
     }
     guardarCarrito()
     console.log(carrito);
-} 
+}
 
-function guardarCarrito(){
+function guardarCarrito() {
     localStorage.setItem("carrito", JSON.stringify(carrito))
 }
 
