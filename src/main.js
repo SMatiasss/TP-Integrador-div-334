@@ -9,6 +9,13 @@ function init() {
     asignarNombre()
 }
 
+
+async function initIndex() {
+    if (!document.querySelector("#pagina-index")) return
+
+    establecerNombre()
+}
+
 async function initInicio() {
     if (!document.querySelector("#pagina-inicio")) return
 
@@ -28,19 +35,16 @@ function initTicket() {
     /* Lógica ticket */
 }
 
-function asignarNombre(){
-    let nombre = localStorage.getItem('nombre')
-    let nombreElemento = document.getElementById('nombre') ?? 'Indefinido'
-    nombreElemento.innerHTML = nombre
-}
+
+
 
 /*************************************************************/
 /* Exclusivo de pantalla Index */
 /*************************************************************/
-function initIndex() {
+
+function establecerNombre(){
     let botonContinuar = document.getElementById('btn-continuar')
     
-    // Si no está en el DOM, salimos limpiamente de la función
     if (!botonContinuar) return 
 
     let inputNombre = document.getElementById('input-nombre')
@@ -55,6 +59,7 @@ function initIndex() {
         }
     })
 }
+
 
 
 
@@ -196,6 +201,11 @@ function guardarCarrito() {
 }
 
 
+function asignarNombre(){
+    let nombre = localStorage.getItem('nombre')
+    let nombreElemento = document.getElementById('nombre') ?? 'Indefinido'
+    nombreElemento.innerHTML = nombre
+}
 
 /*************************************************************/
 /* Creacion de arrays para usar y ejecución init */
